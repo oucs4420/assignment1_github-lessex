@@ -1,3 +1,16 @@
+/*******************************************************************
+ *
+ *  Author:      Logan Essex
+ *  Email:       le160516@ohio.edu
+ *
+ *  Class: CS4420
+ *
+ *  Description: Counts number of lines from file(s)
+ *
+ *  Date:        1/14/2022
+ *
+ *******************************************************************/
+
 #include <iostream>
 #include <fstream>
 using namespace std;
@@ -12,23 +25,27 @@ int main(int argc, char *argv[])
 {
     string line;
     ifstream myfile;
-    // myfile.open(argv[1]);
-    cout << "program: " << argv[0] << endl;
 
-    // just to get you started, this is how to refer to the arguments that were passed
-    for (int arg = 1; arg < argc; ++arg)
+    cout << "program: " << argv[0] << endl; // prints out filename
+
+    for (int arg = 1; arg < argc; ++arg) // looping through files
     {
-        int numLines = 0;
+        int numLines = 0; // stores number of lines per file
 
-        myfile.open(argv[arg]);
-        while (getline(myfile, line))
+        myfile.open(argv[arg]);       // opens the file
+        while (getline(myfile, line)) // count lines from file
         {
-            numLines++;
+            numLines++; // increment every time a line is found within file
         }
-
-        cout << argv[arg] << " " << numLines << endl;
+        if (!myfile.is_open()) // if file fails to open, return -1
+        {
+            cout << " " << argv[arg] << ": "
+                 << "-1" << endl;
+        }
+        else
+        {
+            cout << " " << argv[arg] << ": " << numLines << endl; // if file opens, output filename and number of lines
+        }
         myfile.close();
     }
-
-    exit(0); // this means that the program executed correctly!
 }
